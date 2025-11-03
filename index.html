@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعلم الألمانية - أكاديمية سكاي إيجلز</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .academy-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-align: left;
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .academy-name {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .cap-name {
+            font-size: 1em;
+            color: #ffeaa7;
+            font-weight: bold;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 30px 20px;
+            background: #f8f9fa;
+        }
+
+        .nav-buttons button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .nav-buttons button:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-buttons button.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .content {
+            padding: 40px;
+            min-height: 400px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .lesson {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+        }
+
+        .lesson h3 {
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+
+        .lesson p {
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .alphabet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .alphabet-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .alphabet-card:hover {
+            transform: scale(1.05);
+        }
+
+        .alphabet-card .emoji {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .alphabet-card .letter {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .alphabet-card .word {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .alphabet-card .translation {
+            font-size: 1em;
+            margin-bottom: 10px;
+            opacity: 0.9;
+            color: #ffeaa7;
+        }
+
+        .alphabet-card .pronunciation {
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .sound-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .sound-btn {
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.3);
+            color: white;
+            border: 2px solid white;
+            border-radius: 20px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .sound-btn:hover {
+            background: rgba(255,255,255,0.6);
+            transform: scale(1.1);
+        }
+
+        .phrase-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .phrase-card h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .phrase-card .german {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .phrase-card .arabic {
+            font-size: 1em;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .phrase-card .translation {
+            font-size: 1em;
+            margin-bottom: 15px;
+            color: #ffeaa7;
+            font-weight: bold;
+        }
+
+        .phrase-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .phrase-btn {
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.3);
+            color: white;
+            border: 2px solid white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .phrase-btn:hover {
+            background: rgba(255,255,255,0.6);
+        }
+
+        .verb-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .verb-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: right;
+        }
+
+        .verb-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .verb-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .verb-audio-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .verb-audio-btn:hover {
+            background: #764ba2;
+        }
+
+        .quiz-container {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .question {
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .question h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .question-audio {
+            margin-bottom: 15px;
+        }
+
+        .question-audio button {
+            padding: 8px 15px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .question-audio button:hover {
+            background: #764ba2;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 15px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .score {
+            text-align: center;
+            font-size: 1.5em;
+            color: #667eea;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .game-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .game-card:hover {
+            transform: scale(1.05);
+        }
+
+        .game-card.matched {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        .game-emoji {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .game-text {
+            font-size: 1em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .game-translation {
+            font-size: 0.9em;
+            opacity: 0.9;
+            color: #ffeaa7;
+        }
+
+        .game-audio-btn {
+            padding: 5px 10px;
+            background: rgba(255,255,255,0.3);
+            border: 1px solid white;
+            color: white;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 8px;
+            font-size: 0.8em;
+        }
+
+        .game-audio-btn:hover {
+            background: rgba(255,255,255,0.6);
+        }
+
+        .special-letters {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .special-letters h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .academy-badge {
+                position: relative;
+                top: 0;
+                left: 0;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-buttons button {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="academy-badge">
+                <div class="academy-name">أكاديمية سكاي إيجلز</div>
+                <div class="cap-name">Cap: Peter N.T</div>
+            </div>
+            <h1>🇩🇪 تعلم اللغة الألمانية</h1>
+            <p>درس تفاعلي ممتع مع أصوات وأسئلة شاملة</p>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="nav-btn active" data-section="alphabet">الحروف الألمانية</button>
+            <button class="nav-btn" data-section="greetings">التحيات</button>
+            <button class="nav-btn" data-section="sein">فعل sein</button>
+            <button class="nav-btn" data-section="quiz">اختبر نفسك</button>
+            <button class="nav-btn" data-section="game">لعبة التطابق</button>
+        </div>
+
+        <div class="content">
+            <div id="alphabet" class="section active">
+                <h2>🔤 الحروف الألمانية الكاملة مع الأصوات</h2>
+                <div class="lesson">
+                    <h3>تعريف</h3>
+                    <p>اللغة الألمانية تستخدم الحروف اللاتينية مع إضافة الحروف الخاصة: ä, ö, ü, ß</p>
+                    <p>اضغط على أزرار الصوت لتسمع النطق الصحيح 🔊</p>
+                </div>
+
+                <div class="special-letters">
+                    <h3>📝 الحروف الخاصة بالألمانية</h3>
+                    <p><strong>Ä, Ö, Ü</strong> (Umlauts): حروف متغيرة النطق</p>
+                    <p><strong>ß</strong> (Eszett): حرف الـ "s" الحاد، يستخدم بعد حروف العلة الطويلة</p>
+                </div>
+
+                <div class="alphabet-grid" id="alphabetGrid"></div>
+            </div>
+
+            <div id="greetings" class="section">
+                <h2>🗣️ التحيات والعبارات الأساسية</h2>
+                <div class="lesson">
+                    <h3>أهم عبارات الترحيب والتحية</h3>
+                    <p>تعلم العبارات الأساسية. اضغط على الأزرار لتسمع النطق الصحيح!</p>
+                </div>
+                <div id="greetingsContainer"></div>
+            </div>
+
+            <div id="sein" class="section">
+                <h2>📚 فعل sein (أكون)</h2>
+                <div class="lesson">
+                    <h3>شرح الفعل</h3>
+                    <p>من أهم الأفعال في اللغة الألمانية. اضغط على الأزرار لتسمع النطق!</p>
+                </div>
+                <table class="verb-table">
+                    <thead>
+                        <tr>
+                            <th>الجملة العربية</th>
+                            <th>الترجمة</th>
+                            <th>الضمير</th>
+                            <th>التصريف</th>
+                            <th>الصوت</th>
+                        </tr>
+                    </thead>
+                    <tbody id="verbTableBody"></tbody>
+                </table>
+            </div>
+
+            <div id="quiz" class="section">
+                <h2>✏️ اختبر معلوماتك الشاملة</h2>
+                <div class="quiz-container" id="quizContainer"></div>
+            </div>
+
+            <div id="game" class="section">
+                <h2>🎮 لعبة التطابق مع الأصوات</h2>
+                <p style="color: #666; margin-bottom: 20px;">اضغط على البطاقات لإيجاد الكلمة المطابقة!</p>
+                <div class="game-container" id="gameContainer"></div>
+                <div id="gameMessage" style="text-align: center; margin-top: 20px; font-size: 1.2em; color: #667eea; display: none;">مبروك! لقد أكملت اللعبة 🎉</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const App = {
+            alphabet: [
+                // الحروف الأساسية (26 حرف)
+                {letter: 'A', word: 'Apfel', translation: 'تفاحة', emoji: '🍎', pronunciation: 'آ'},
+                {letter: 'B', word: 'Ball', translation: 'كرة', emoji: '⚽', pronunciation: 'بيه'},
+                {letter: 'C', word: 'Computer', translation: 'كمبيوتر', emoji: '💻', pronunciation: 'تسيه'},
+                {letter: 'D', word: 'Dach', translation: 'سقف', emoji: '🏠', pronunciation: 'ديه'},
+                {letter: 'E', word: 'Elefant', translation: 'فيل', emoji: '🐘', pronunciation: 'إيه'},
+                {letter: 'F', word: 'Fisch', translation: 'سمكة', emoji: '🐠', pronunciation: 'إف'},
+                {letter: 'G', word: 'Garten', translation: 'حديقة', emoji: '🌳', pronunciation: 'غيه'},
+                {letter: 'H', word: 'Haus', translation: 'منزل', emoji: '🏡', pronunciation: 'ها'},
+                {letter: 'I', word: 'Insel', translation: 'جزيرة', emoji: '🏝️', pronunciation: 'إي'},
+                {letter: 'J', word: 'Jacke', translation: 'سترة', emoji: '🧥', pronunciation: 'يوت'},
+                {letter: 'K', word: 'Katze', translation: 'قطة', emoji: '🐱', pronunciation: 'كاه'},
+                {letter: 'L', word: 'Lampe', translation: 'لمبة', emoji: '💡', pronunciation: 'إل'},
+                {letter: 'M', word: 'Maus', translation: 'فأر', emoji: '🐭', pronunciation: 'إم'},
+                {letter: 'N', word: 'Nase', translation: 'أنف', emoji: '👃', pronunciation: 'إن'},
+                {letter: 'O', word: 'Ohr', translation: 'أذن', emoji: '👂', pronunciation: 'أوه'},
+                {letter: 'P', word: 'Pferd', translation: 'حصان', emoji: '🐴', pronunciation: 'بيه'},
+                {letter: 'Q', word: 'Quelle', translation: 'نبع/مصدر', emoji: '💧', pronunciation: 'كوه'},
+                {letter: 'R', word: 'Rose', translation: 'وردة', emoji: '🌹', pronunciation: 'إر'},
+                {letter: 'S', word: 'Sonne', translation: 'شمس', emoji: '☀️', pronunciation: 'إس'},
+                {letter: 'T', word: 'Tisch', translation: 'طاولة', emoji: '📚', pronunciation: 'ته'},
+                {letter: 'U', word: 'Uhr', translation: 'ساعة', emoji: '⏰', pronunciation: 'أوه'},
+                {letter: 'V', word: 'Vogel', translation: 'طائر', emoji: '🦅', pronunciation: 'فاو'},
+                {letter: 'W', word: 'Wasser', translation: 'ماء', emoji: '💧', pronunciation: 'فيه'},
+                {letter: 'X', word: 'Xylophon', translation: 'إكسليفون', emoji: '🎵', pronunciation: 'إكس'},
+                {letter: 'Y', word: 'Yacht', translation: 'يخت', emoji: '⛵', pronunciation: 'إبسيلون'},
+                {letter: 'Z', word: 'Zebra', translation: 'حمار وحشي', emoji: '🦓', pronunciation: 'تست'},
+                
+                // الحروف الخاصة بالألمانية (Umlauts)
+                {letter: 'Ä', word: 'Äpfel', translation: 'تفاح', emoji: '🍏', pronunciation: 'إيه مع نقط'},
+                {letter: 'Ö', word: 'Öl', translation: 'زيت', emoji: '🛢️', pronunciation: 'أوه مع نقط'},
+                {letter: 'Ü', word: 'Übung', translation: 'تمرين', emoji: '📝', pronunciation: 'أوه مع نقط'},
+                
+                // الحرف الخاص
+                {letter: 'ß', word: 'Straße', translation: 'طريق/شارع', emoji: '🛣️', pronunciation: 'إس تسيه'}
+            ],
+
+            greetings: [
+                {german: 'Hallo', arabic: 'مرحبا', translation: 'تحية عامة', explanation: 'تحية عامة غير رسمية'},
+                {german: 'Guten Morgen', arabic: 'صباح الخير', translation: 'تحية الصباح', explanation: 'تحية الصباح'},
+                {german: 'Guten Tag', arabic: 'مساء الخير', translation: 'تحية بعد الظهيرة', explanation: 'تحية بعد الظهيرة'},
+                {german: 'Guten Abend', arabic: 'مساء الخير', translation: 'تحية المساء', explanation: 'تحية المساء'},
+                {german: 'Gute Nacht', arabic: 'تصبح على خير', translation: 'تحية الليل', explanation: 'تحية الليل'},
+                {german: 'Auf Wiedersehen', arabic: 'وداعا', translation: 'تحية الوداع الرسمية', explanation: 'تحية الوداع الرسمية'},
+                {german: 'Tschüss', arabic: 'باي', translation: 'تحية الوداع غير رسمية', explanation: 'تحية الوداع غير رسمية'},
+                {german: 'Wie geht es dir?', arabic: 'كيف حالك؟', translation: 'سؤال عن الأحوال', explanation: 'سؤال عن الأحوال'},
+                {german: 'Mir geht es gut', arabic: 'أنا بخير', translation: 'الرد على سؤال كيف حالك', explanation: 'الرد على سؤال كيف حالك'},
+                {german: 'Danke', arabic: 'شكرا', translation: 'كلمة شكر بسيطة', explanation: 'كلمة شكر بسيطة'},
+                {german: 'Danke schön', arabic: 'شكرا جزيلا', translation: 'شكر مهذب', explanation: 'شكر مهذب'},
+                {german: 'Bitte', arabic: 'من فضلك', translation: 'كلمة طلب مهذبة', explanation: 'كلمة طلب مهذبة'},
+                {german: 'Bitte schön', arabic: 'عفوا', translation: 'الرد على الشكر', explanation: 'الرد على الشكر'},
+                {german: 'Ich heiße Peter', arabic: 'اسمي بيتر', translation: 'تقديم النفس', explanation: 'تقديم النفس'},
+                {german: 'Freut mich', arabic: 'يسعدني', translation: 'الرد اللطيف عند التعرف', explanation: 'الرد اللطيف عند التعرف'},
+                {german: 'Entschuldigung', arabic: 'آسف', translation: 'اعتذار رسمي', explanation: 'اعتذار رسمي'},
+                {german: 'Ja', arabic: 'نعم', translation: 'موافقة', explanation: 'موافقة'},
+                {german: 'Nein', arabic: 'لا', translation: 'رفض', explanation: 'رفض'},
+                {german: 'Nicht verstanden', arabic: 'لم أفهم', translation: 'طلب التوضيح', explanation: 'طلب التوضيح'},
+                {german: 'Sprechen Sie Deutsch?', arabic: 'هل تتكلم ألمانية؟', translation: 'سؤال عن اللغة', explanation: 'سؤال عن اللغة'}
+            ],
+
+            verbs: [
+                {german: 'Ich bin', arabic: 'أنا أكون', translation: 'أنا', pronoun: 'Ich', conjugation: 'bin'},
+                {german: 'Du bist', arabic: 'أنت تكون', translation: 'أنت', pronoun: 'Du', conjugation: 'bist'},
+                {german: 'Er ist', arabic: 'هو يكون', translation: 'هو', pronoun: 'Er', conjugation: 'ist'},
+                {german: 'Sie ist', arabic: 'هي تكون', translation: 'هي', pronoun: 'Sie', conjugation: 'ist'},
+                {german: 'Es ist', arabic: 'هو محايد', translation: 'هو (محايد)', pronoun: 'Es', conjugation: 'ist'},
+                {german: 'Wir sind', arabic: 'نحن نكون', translation: 'نحن', pronoun: 'Wir', conjugation: 'sind'},
+                {german: 'Ihr seid', arabic: 'أنتم تكونون', translation: 'أنتم', pronoun: 'Ihr', conjugation: 'seid'},
+                {german: 'Sie sind', arabic: 'هم يكونون', translation: 'هم', pronoun: 'Sie', conjugation: 'sind'}
+            ],
+
+            quizzes: [
+                {q: 'ما معنى "Hallo"؟', audio: 'Hallo', opts: ['وداعا', 'مرحبا', 'شكرا'], ans: 1, exp: 'Hallo تعني مرحبا'},
+                {q: 'كيف تقول "صباح الخير"؟', audio: 'Guten Morgen', opts: ['Guten Tag', 'Guten Morgen', 'Guten Abend'], ans: 1, exp: 'Guten Morgen = صباح الخير'},
+                {q: 'ما معنى "Auf Wiedersehen"؟', audio: 'Auf Wiedersehen', opts: ['مرحبا', 'وداعا', 'شكرا'], ans: 1, exp: 'Auf Wiedersehen = وداعا'},
+                {q: 'كيف تقول "أنا أكون"؟', audio: 'Ich bin', opts: ['Du bist', 'Ich bin', 'Er ist'], ans: 1, exp: 'Ich bin = أنا أكون'},
+                {q: 'ما تصريف sein مع wir؟', audio: 'Wir sind', opts: ['bin', 'sind', 'bist'], ans: 1, exp: 'Wir sind = نحن نكون'},
+                {q: 'كيف تقول "اسمي بيتر"؟', audio: 'Ich heisse Peter', opts: ['Du heisst Peter', 'Ich heisse Peter', 'Er heisst Peter'], ans: 1, exp: 'Ich heisse Peter = اسمي بيتر'},
+                {q: 'ما معنى "Danke"؟', audio: 'Danke', opts: ['من فضلك', 'شكرا', 'آسف'], ans: 1, exp: 'Danke = شكرا'},
+                {q: 'كيف تقول "كيف حالك"؟', audio: 'Wie geht es dir', opts: ['Wie ist es', 'Wie geht es dir', 'Was ist das'], ans: 1, exp: 'Wie geht es dir = كيف حالك'},
+                {q: 'ما معنى "Entschuldigung"؟', audio: 'Entschuldigung', opts: ['مرحبا', 'شكرا', 'آسف'], ans: 2, exp: 'Entschuldigung = آسف'},
+                {q: 'كيف تقول "أنت تكون"؟', audio: 'Du bist', opts: ['Du bist', 'Ich bin', 'Wir sind'], ans: 0, exp: 'Du bist = أنت تكون'}
+            ],
+
+            gameItems: [
+                {german: 'Katze', translation: 'قطة', emoji: '🐱'},
+                {german: 'Haus', translation: 'منزل', emoji: '🏠'},
+                {german: 'Apfel', translation: 'تفاحة', emoji: '🍎'},
+                {german: 'Sonne', translation: 'شمس', emoji: '☀️'},
+                {german: 'Baum', translation: 'شجرة', emoji: '🌳'},
+                {german: 'Wasser', translation: 'ماء', emoji: '💧'}
+            ],
+
+            lastFlipped: null,
+            gameMatched: [],
+
+            showSection(id) {
+                console.log('Show section:', id);
+                const sections = document.querySelectorAll('.section');
+                const buttons = document.querySelectorAll('.nav-btn');
+                
+                sections.forEach(function(s) { s.classList.remove('active'); });
+                buttons.forEach(function(b) { b.classList.remove('active'); });
+                
+                const section = document.getElementById(id);
+                const button = document.querySelector('[data-section="' + id + '"]');
+                
+                if(section) section.classList.add('active');
+                if(button) button.classList.add('active');
+                
+                if(id === 'alphabet') this.renderAlphabet();
+                else if(id === 'greetings') this.renderGreetings();
+                else if(id === 'sein') this.renderVerb();
+                else if(id === 'quiz') this.renderQuiz();
+                else if(id === 'game') this.renderGame();
+            },
+
+            renderAlphabet() {
+                const grid = document.getElementById('alphabetGrid');
+                grid.innerHTML = this.alphabet.map(item => {
+                    const letterSafe = item.letter.replace(/'/g, "\\'");
+                    const wordSafe = item.word.replace(/'/g, "\\'");
+                    return `
+                    <div class="alphabet-card">
+                        <div class="emoji">${item.emoji}</div>
+                        <div class="letter">${item.letter}</div>
+                        <div class="word">${item.word}</div>
+                        <div class="translation">${item.translation}</div>
+                        <div class="pronunciation">${item.pronunciation}</div>
+                        <div class="sound-buttons">
+                            <button class="sound-btn" data-speak="${letterSafe}">🔊 الحرف</button>
+                            <button class="sound-btn" data-speak="${wordSafe}">🔊 الكلمة</button>
+                        </div>
+                    </div>
+                `;
+                }).join('');
+                this.addSpeakListeners();
+            },
+
+            addSpeakListeners() {
+                const self = this;
+                document.querySelectorAll('[data-speak]').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const rate = this.textContent.includes('الحرف') ? 0.8 : 0.9;
+                        self.speak(this.getAttribute('data-speak'), rate);
+                    });
+                });
+            },
+
+            renderGreetings() {
+                const container = document.getElementById('greetingsContainer');
+                container.innerHTML = this.greetings.map((g, i) => `
+                    <div class="phrase-card">
+                        <h3>📌 ${g.explanation}</h3>
+                        <div class="german">${g.german}</div>
+                        <div class="arabic">${g.arabic}</div>
+                        <div class="translation">${g.translation}</div>
+                        <div class="phrase-buttons">
+                            <button class="phrase-btn" data-speak-idx="${i}" data-speed="0.9">🔊 استمع</button>
+                            <button class="phrase-btn" data-speak-idx="${i}" data-speed="0.7">🎙️ ببطء</button>
+                        </div>
+                    </div>
+                `).join('');
+                this.addGreetingListeners();
+            },
+
+            addGreetingListeners() {
+                const self = this;
+                document.querySelectorAll('[data-speak-idx]').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const idx = parseInt(this.getAttribute('data-speak-idx'));
+                        const speed = parseFloat(this.getAttribute('data-speed'));
+                        self.speak(self.greetings[idx].german, speed);
+                    });
+                });
+            },
+
+            renderVerb() {
+                const tbody = document.getElementById('verbTableBody');
+                tbody.innerHTML = this.verbs.map((v, i) => `
+                    <tr>
+                        <td>${v.arabic}</td>
+                        <td>${v.german}</td>
+                        <td>${v.pronoun}</td>
+                        <td><strong>${v.conjugation}</strong></td>
+                        <td><button class="verb-audio-btn" data-verb-idx="${i}">🔊</button></td>
+                    </tr>
+                `).join('');
+                this.addVerbListeners();
+            },
+
+            addVerbListeners() {
+                const self = this;
+                document.querySelectorAll('[data-verb-idx]').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const idx = parseInt(this.getAttribute('data-verb-idx'));
+                        self.speak(self.verbs[idx].german, 0.9);
+                    });
+                });
+            },
+
+            renderQuiz() {
+                const container = document.getElementById('quizContainer');
+                let html = '';
+                this.quizzes.forEach((q, i) => {
+                    html += `
+                        <div class="question">
+                            <h3>السؤال ${i + 1}: ${q.q}</h3>
+                            <div class="question-audio">
+                                <button class="quiz-audio-btn" data-quiz-idx="${i}">🔊 استمع</button>
+                            </div>
+                            <div class="options">
+                                ${q.opts.map((o, j) => `
+                                    <label class="option">
+                                        <input type="radio" name="q${i}" value="${j}">
+                                        ${o}
+                                    </label>
+                                `).join('')}
+                            </div>
+                            <div id="exp${i}" style="display:none; margin-top:10px; padding:10px; background:#e7f3ff; border-radius:5px; color:#0066cc;"></div>
+                        </div>
+                    `;
+                });
+                html += '<button class="btn" id="checkBtn">تحقق من الإجابات</button>';
+                html += '<div id="quizScore" class="score" style="display:none;"></div>';
+                container.innerHTML = html;
+                
+                this.addQuizListeners();
+            },
+
+            addQuizListeners() {
+                const self = this;
+                document.querySelectorAll('[data-quiz-idx]').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const idx = parseInt(this.getAttribute('data-quiz-idx'));
+                        self.speak(self.quizzes[idx].audio, 0.9);
+                    });
+                });
+
+                document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', function(e) {
+                        const name = this.name;
+                        const qIdx = parseInt(name.replace('q', ''));
+                        const j = parseInt(this.value);
+                        const q = self.quizzes[qIdx];
+                        const div = document.getElementById('exp' + qIdx);
+                        div.textContent = (j == q.ans ? '✅' : '❌') + ' ' + q.exp;
+                        div.style.display = 'block';
+                    });
+                });
+
+                const checkBtn = document.getElementById('checkBtn');
+                if(checkBtn) {
+                    checkBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        self.checkAllAns();
+                    });
+                }
+            },
+
+            checkAllAns() {
+                let score = 0;
+                this.quizzes.forEach((q, i) => {
+                    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+                    if(sel && parseInt(sel.value) === q.ans) score++;
+                });
+                document.getElementById('quizScore').style.display = 'block';
+                document.getElementById('quizScore').textContent = `🎉 نتيجتك: ${score}/${this.quizzes.length}`;
+            },
+
+            renderGame() {
+                const container = document.getElementById('gameContainer');
+                const cards = [...this.gameItems, ...this.gameItems].sort(() => Math.random() - 0.5);
+                this.gameMatched = [];
+                this.lastFlipped = null;
+                document.getElementById('gameMessage').style.display = 'none';
+                
+                container.innerHTML = cards.map((item, i) => `
+                    <div class="game-card" id="card${i}" data-game-idx="${i}" data-german="${item.german}" data-emoji="${item.emoji}" data-translation="${item.translation}">
+                        <div class="emoji">?</div>
+                        <div class="game-text">انقر</div>
+                    </div>
+                `).join('');
+
+                this.addGameListeners();
+            },
+
+            addGameListeners() {
+                const self = this;
+                document.querySelectorAll('[data-game-idx]').forEach(card => {
+                    card.addEventListener('click', function(e) {
+                        const idx = parseInt(this.getAttribute('data-game-idx'));
+                        const german = this.getAttribute('data-german');
+                        const emoji = this.getAttribute('data-emoji');
+                        const translation = this.getAttribute('data-translation');
+                        self.flipCard(idx, german, emoji, translation);
+                    });
+                });
+            },
+
+            flipCard(idx, german, emoji, translation) {
+                const card = document.getElementById('card' + idx);
+                if(this.gameMatched.includes(idx)) return;
+
+                const self = this;
+                card.innerHTML = `
+                    <div class="game-emoji">${emoji}</div>
+                    <div class="game-text">${german}</div>
+                    <div class="game-translation">${translation}</div>
+                    <button class="game-audio-btn">🔊</button>
+                `;
+
+                const btn = card.querySelector('.game-audio-btn');
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    self.speak(german, 0.9);
+                });
+                
+                if(!this.lastFlipped) {
+                    this.lastFlipped = {idx, german};
+                } else {
+                    const isMatch = this.lastFlipped.german === german;
+                    if(isMatch) {
+                        this.gameMatched.push(idx, this.lastFlipped.idx);
+                        card.classList.add('matched');
+                        document.getElementById('card' + this.lastFlipped.idx).classList.add('matched');
+                        
+                        if(this.gameMatched.length === this.gameItems.length * 2) {
+                            setTimeout(() => {
+                                document.getElementById('gameMessage').style.display = 'block';
+                            }, 500);
+                        }
+                    } else {
+                        setTimeout(() => {
+                            card.innerHTML = '<div class="emoji">?</div><div class="game-text">انقر</div>';
+                            document.getElementById('card' + this.lastFlipped.idx).innerHTML = '<div class="emoji">?</div><div class="game-text">انقر</div>';
+                        }, 800);
+                    }
+                    this.lastFlipped = null;
+                }
+            },
+
+            speak(text, rate) {
+                if('speechSynthesis' in window) {
+                    speechSynthesis.cancel();
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = 'de-DE';
+                    utterance.rate = rate;
+                    speechSynthesis.speak(utterance);
+                }
+            }
+        };
+
+        // تهيئة الصفحة عند تحميل DOM
+        document.addEventListener('DOMContentLoaded', function() {
+            App.renderAlphabet();
+
+            // إضافة event listeners للأزرار الرئيسية
+            document.querySelectorAll('.nav-btn').forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const section = this.getAttribute('data-section');
+                    console.log('Clicked section:', section);
+                    App.showSection(section);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
